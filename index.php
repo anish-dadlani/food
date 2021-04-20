@@ -213,10 +213,10 @@ session_start();
                             <ul>
                                 <li><a href="#" class="selected" data-filter="*">all</a> </li>
                                 <?php // display categories here
-									    $res= mysqli_query($db,"select * from res_category");
-									    while($row=mysqli_fetch_array($res)) {
-											echo '<li><a href="#" data-filter=".'.$row['c_name'].'"> '.$row['c_name'].'</a> </li>';
-										} ?>
+									    //$res= mysqli_query($db,"select * from res_category");
+									    //while($row=mysqli_fetch_array($res)) {
+											//echo '<li><a href="#" data-filter=".'.$row['c_name'].'"> '.$row['c_name'].'</a> </li>';
+										//} ?>
                             </ul>
                         </nav>
                     </div>
@@ -230,10 +230,11 @@ session_start();
 						    $ress= mysqli_query($db,"select * from restaurant");  
                             while($rows=mysqli_fetch_array($ress))
                             { // fetch records from res_category table according to catgory ID
-                                $query= mysqli_query($db,"select * from res_category where c_id='".$rows['c_id']."' ");
-                                $rowss=mysqli_fetch_array($query);
+                                // $query= mysqli_query($db,"select * from res_category r join restaurant_categories rc on r.c_id = rc.cat_id
+                                // where rc.hut_id='".$rows['rs_id']."' ");
+                                // $rowss=mysqli_fetch_array($query);
         
-                                echo ' <div class="col-xs-12 col-sm-12 col-md-6 single-restaurant all '.$rowss['c_name'].'">
+                                echo ' <div class="col-xs-12 col-sm-12 col-md-6 single-restaurant all ">
                                             <div class="restaurant-wrap">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-3 col-md-12 col-lg-3 text-xs-center">

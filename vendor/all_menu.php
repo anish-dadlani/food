@@ -172,8 +172,8 @@ session_start();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-												$sql="SELECT * FROM dishes order by d_id desc";
+                                            <?php $id = $_SESSION['hut_id'];
+												$sql="SELECT * FROM dishes where rs_id=$id order by d_id desc";
 												$query=mysqli_query($db,$sql);
 												
                                                 if(!mysqli_num_rows($query) > 0 )

@@ -6,7 +6,7 @@ error_reporting(0);
 session_start();
 if(isset($_POST['submit']))           //if upload btn is pressed
 {
-	if(empty($_POST['c_name'])||empty($_POST['res_name'])||$_POST['email']==''||$_POST['phone']==''||$_POST['url']==''||$_POST['o_hr']==''||$_POST['c_hr']==''||$_POST['o_days']==''||$_POST['address']=='')
+	if(empty($_POST['res_name'])||$_POST['email']==''||$_POST['phone']==''||$_POST['url']==''||$_POST['o_hr']==''||$_POST['c_hr']==''||$_POST['o_days']==''||$_POST['address']=='')
     {	
         $error = 	'<div class="alert alert-danger alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -35,12 +35,17 @@ if(isset($_POST['submit']))           //if upload btn is pressed
 		    else
 			{								
 				$res_name=$_POST['res_name'];
-			    $sql = "INSERT INTO restaurant(c_id,title,email,phone,url,o_hr,c_hr,o_days,address,image) VALUE('".$_POST['c_name']."','".$res_name."','".$_POST['email']."','".$_POST['phone']."','".$_POST['url']."','".$_POST['o_hr']."','".$_POST['c_hr']."','".$_POST['o_days']."','".$_POST['address']."','".$fnew."')";  // store the submited data ino the database :images
-				mysqli_query($db, $sql); 
+			    $sql = "INSERT INTO restaurant(title,email,phone,url,o_hr,c_hr,o_days,address,image) VALUE('".$res_name."','".$_POST['email']."','".$_POST['phone']."','".$_POST['url']."','".$_POST['o_hr']."','".$_POST['c_hr']."','".$_POST['o_days']."','".$_POST['address']."','".$fnew."')";  // store the submited data ino the database :images
+				mysqli_query($db, $sql);
+                $idR = mysqli_insert_id($db);
+                foreach($_POST['c_name'] as $key => $value){
+                    $q = "insert into restaurant_categories(hut_id,cat_id) values($idR,$value)";
+                    mysqli_query($db, $q);
+                }             
 				move_uploaded_file($temp, $store);
 			  	$success = 	'<div class="alert alert-success alert-dismissible fade show">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<strong>Congrass!</strong> New Restaurant Added Successfully.
+								<strong>Congrasts!</strong> New Hut Added Successfully.
 							</div>';
             }
 		}
@@ -328,17 +333,17 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="control-label">Select Category</label>
-                                                <select name="c_name" class="form-control custom-select"
-                                                    data-placeholder="Choose a Category" tabindex="1">
-                                                    <option>--Select Category--</option>
+                                                <!-- <select name="c_name" class="form-control custom-select" -->
+                                                    <!-- data-placeholder="Choose a Category" tabindex="1"> -->
+                                                    <!-- <option>--Select Category--</option> -->
                                                     <?php $ssql ="select * from res_category";
 													$res=mysqli_query($db, $ssql); 
 													while($row=mysqli_fetch_array($res))  
 													{
-                                                       echo' <option value="'.$row['c_id'].'">'.$row['c_name'].'</option>';;
+                                                       echo' <input type="checkbox" name="c_name[]" value="'.$row['c_id'].'">'.$row['c_name'].'</input>&nbsp;';
 													}                                              
 													?>
-                                                </select>
+                                                <!-- </select> -->
                                             </div>
                                         </div>
                                     </div>

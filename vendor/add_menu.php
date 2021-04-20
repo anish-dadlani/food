@@ -6,7 +6,7 @@ error_reporting(0);
 session_start();
 if(isset($_POST['submit']))           //if upload btn is pressed
 {
-	if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']==''||$_POST['res_name']=='')
+	if(empty($_POST['d_name'])||empty($_POST['about'])||$_POST['price']=='')
 	{	
         $error = 	'<div class="alert alert-danger alert-dismissible fade show">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -34,7 +34,7 @@ if(isset($_POST['submit']))           //if upload btn is pressed
             }
             else
 			{
-				$sql = "INSERT INTO dishes(rs_id,title,slogan,price,img) VALUE('".$_POST['res_name']."','".$_POST['d_name']."','".$_POST['about']."','".$_POST['price']."','".$fnew."')";  // store the submited data ino the database :images
+				$sql = "INSERT INTO dishes(rs_id,title,slogan,price,img) VALUE('".$_SESSION['hut_id']."','".$_POST['d_name']."','".$_POST['about']."','".$_POST['price']."','".$fnew."')";  // store the submited data ino the database :images
 				mysqli_query($db, $sql); 
 				move_uploaded_file($temp, $store);
 				$success = 	'<div class="alert alert-success alert-dismissible fade show">
@@ -253,24 +253,24 @@ if(isset($_POST['submit']))           //if upload btn is pressed
                                     </div>
                                     <!--/row-->
                                     <!--/span-->
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="control-label">Select Hut</label>
                                                 <select name="res_name" class="form-control custom-select"
                                                     data-placeholder="Choose a Category" tabindex="1">
                                                     <option>--Select Hut--</option>
-                                                    <?php $ssql ="select * from restaurant";
-													$res=mysqli_query($db, $ssql); 
-													while($row=mysqli_fetch_array($res))  
-													{
-                                                       echo' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';;
-													}                                              
+                                                    <?php //$ssql ="select * from restaurant";
+													//$res=mysqli_query($db, $ssql); 
+													//while($row=mysqli_fetch_array($res))  
+													//{
+                                                    //   echo' <option value="'.$row['rs_id'].'">'.$row['title'].'</option>';;
+													//}                                              
 													?>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                         </div>
                         <div class="form-actions">

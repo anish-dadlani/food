@@ -17,6 +17,7 @@ else
     $query=mysqli_query($db,"insert into remark(frm_id,status,remark) values('$form_id','$status','$remark')");
     $sql=mysqli_query($db,"update users_orders set status='$status' where o_id='$form_id'");
     echo "<script>alert('form details updated successfully');</script>";
+    window.close();
   }
 ?>
 <script language="javascript" type="text/javascript">
@@ -127,7 +128,7 @@ function f3() {
         <form name="updateticket" id="updatecomplaint" method="post">
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                    <td><b>form Number</b></td>
+                    <td><b>Order Number</b></td>
                     <td><?php echo htmlentities($_GET['form_id']); ?></td>
                 </tr>
                 <tr>

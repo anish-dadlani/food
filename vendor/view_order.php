@@ -217,16 +217,16 @@ session_start();
                                                 <td>
                                                     <center><?php echo $rows['title']; ?></center>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <center>
                                                         <a href="javascript:void(0);"
-                                                            onClick="popUpWindow('userprofile.php?newform_id=<?php echo htmlentities($rows['o_id']);?>');"
+                                                            onClick="popUpWindow('userprofile.php?newform_id=<?php //echo htmlentities($rows['o_id']);?>');"
                                                             title="Update order">
                                                             <button type="button" class="btn btn-primary">View User
                                                                 Detials</button></a>
 
                                                     </center>
-                                                </td>
+                                                </td> -->
 
                                             </tr>
                                             <tr>
@@ -240,7 +240,7 @@ session_start();
                                             <tr>
                                                 <td><strong>Price:</strong></td>
                                                 <td>
-                                                    <center>$<?php echo $rows['price']; ?></center>
+                                                    <center>Rs. <?php echo $rows['price']; ?></center>
                                                 </td>
 
 
@@ -335,7 +335,7 @@ session_start();
 
 
     <!-- footer -->
-    <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a>
+    <!-- <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a> -->
     </footer>
     <!-- End footer -->
     </div>
