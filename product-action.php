@@ -17,7 +17,8 @@ if(!empty($_GET["action"]))
 						'title'=>$productDetails->title, 
 						'd_id'=>$productDetails->d_id, 
 						'quantity'=>$quantity, 
-						'price'=>$productDetails->price
+						'price'=>$productDetails->price,
+						'hutId'=>$productDetails->rs_id
 					)
 				);
 				if(!empty($_SESSION["cart_item"])) 
