@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 11:30 AM
+-- Generation Time: Apr 20, 2021 at 02:27 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -81,14 +81,6 @@ CREATE TABLE `dishes` (
   `img` varchar(222) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `dishes`
---
-
-INSERT INTO `dishes` (`d_id`, `rs_id`, `title`, `slogan`, `price`, `img`) VALUES
-(1, 1, 'Malai Boti', 'NA', '150.00', '606e08dea766f.jpg'),
-(2, 2, 'Aloo Paratha', 'NA', '30.00', '606e09945044b.png');
-
 -- --------------------------------------------------------
 
 --
@@ -103,15 +95,6 @@ CREATE TABLE `remark` (
   `remarkDate` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `remark`
---
-
-INSERT INTO `remark` (`id`, `frm_id`, `status`, `remark`, `remarkDate`) VALUES
-(1, 1, 'in process', 'test', '2021-04-07 19:55:30'),
-(2, 2, 'in process', 'anis', '2021-04-18 22:59:22'),
-(3, 3, 'in process', 'asd', '2021-04-18 23:07:06');
-
 -- --------------------------------------------------------
 
 --
@@ -120,7 +103,7 @@ INSERT INTO `remark` (`id`, `frm_id`, `status`, `remark`, `remarkDate`) VALUES
 
 CREATE TABLE `restaurant` (
   `rs_id` int(222) NOT NULL,
-  `c_id` int(222) NOT NULL,
+  `c_id` int(222) DEFAULT NULL,
   `title` varchar(222) NOT NULL,
   `email` varchar(222) NOT NULL,
   `phone` varchar(222) NOT NULL,
@@ -133,13 +116,17 @@ CREATE TABLE `restaurant` (
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `restaurant`
+-- Table structure for table `restaurant_categories`
 --
 
-INSERT INTO `restaurant` (`rs_id`, `c_id`, `title`, `email`, `phone`, `url`, `o_hr`, `c_hr`, `o_days`, `address`, `image`, `date`) VALUES
-(1, 1, 'Majeed Huts', 'majeed@hut.com', '0304-8999119', 'majeedhuts.com', '8am', '8pm', '24hr-x7', 'QAU', '606e08944a3ae.jpg', '2021-04-07 19:31:32'),
-(2, 2, 'Babloo Huts', 'babloo@hut.com', '03312268839', 'babloohuts.com', '6am', '3pm', 'mon-sat', 'QAU', '606e092a5c31f.jpg', '2021-04-07 19:34:02');
+CREATE TABLE `restaurant_categories` (
+  `id` int(11) NOT NULL,
+  `hut_id` int(11) DEFAULT NULL,
+  `cat_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -152,14 +139,6 @@ CREATE TABLE `res_category` (
   `c_name` varchar(222) NOT NULL,
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `res_category`
---
-
-INSERT INTO `res_category` (`c_id`, `c_name`, `date`) VALUES
-(1, 'Fast-Food', '2021-04-07 19:30:17'),
-(2, 'Breakfast', '2021-04-07 19:33:13');
 
 -- --------------------------------------------------------
 
@@ -180,14 +159,6 @@ CREATE TABLE `users` (
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`u_id`, `username`, `f_name`, `l_name`, `email`, `phone`, `password`, `address`, `status`, `date`) VALUES
-(1, 'anish', 'Anish', 'Dadlani', 'anishdadlani@live.com', '0304-8999119', '6ffb3adc422938cc971f20bf4d5558f1', 'h1', 1, '2021-04-07 19:43:32'),
-(2, 'dadlani', 'anish', 'anish', 'anish@pace-tech.com', '1234534234', 'fcea920f7412b5da7be0cf42b8c93759', 'asdf', 1, '2021-04-18 22:55:17');
-
 -- --------------------------------------------------------
 
 --
@@ -206,17 +177,6 @@ CREATE TABLE `users_orders` (
   `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `users_orders`
---
-
-INSERT INTO `users_orders` (`o_id`, `u_id`, `h_id`, `m_id`, `title`, `quantity`, `price`, `status`, `date`) VALUES
-(1, 1, 2, 2, 'Aloo Paratha', 4, '30.00', 'in process', '2021-04-20 09:13:40'),
-(2, 2, 1, 1, 'Malai Boti', 4, '150.00', 'in process', '2021-04-20 09:13:43'),
-(3, 2, 1, 1, 'Malai Boti', 1, '150.00', 'in process', '2021-04-20 09:13:45'),
-(4, 2, 2, 2, 'Aloo Paratha', 1, '30.00', NULL, '2021-04-20 09:13:47'),
-(5, 2, 1, 1, 'Malai Boti', 1, '150.00', NULL, '2021-04-20 09:10:22');
-
 -- --------------------------------------------------------
 
 --
@@ -231,15 +191,6 @@ CREATE TABLE `vendors` (
   `username` varchar(30) DEFAULT NULL,
   `password` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `vendors`
---
-
-INSERT INTO `vendors` (`id`, `hut_id`, `name`, `number`, `username`, `password`) VALUES
-(1, 1, 'Majeed', NULL, 'majeed', '81dc9bdb52d04dc20036dbd8313ed055'),
-(2, 2, 'babloo', '0304-899911', 'babloo', '81dc9bdb52d04dc20036dbd8313ed055'),
-(3, 1, 'puj', '0304-899911', 'punjab', '81dc9bdb52d04dc20036dbd8313ed055');
 
 --
 -- Indexes for dumped tables
@@ -274,6 +225,12 @@ ALTER TABLE `remark`
 --
 ALTER TABLE `restaurant`
   ADD PRIMARY KEY (`rs_id`);
+
+--
+-- Indexes for table `restaurant_categories`
+--
+ALTER TABLE `restaurant_categories`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `res_category`
@@ -319,43 +276,49 @@ ALTER TABLE `admin_codes`
 -- AUTO_INCREMENT for table `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `d_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `d_id` int(222) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `remark`
 --
 ALTER TABLE `remark`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `restaurant`
 --
 ALTER TABLE `restaurant`
-  MODIFY `rs_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `rs_id` int(222) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `restaurant_categories`
+--
+ALTER TABLE `restaurant_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `res_category`
 --
 ALTER TABLE `res_category`
-  MODIFY `c_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `c_id` int(222) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `u_id` int(222) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users_orders`
 --
 ALTER TABLE `users_orders`
-  MODIFY `o_id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `o_id` int(222) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
